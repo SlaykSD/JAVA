@@ -1,5 +1,7 @@
 package ru.mephi.map;
 
+import ru.mephi.List.List;
+
 /*
 Реализовать словарь (map)
   Операции

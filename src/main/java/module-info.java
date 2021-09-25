@@ -5,4 +5,6 @@ module com.example.lab2 {
 
     opens ru.mephi.map to javafx.fxml;
     exports ru.mephi.map;
+    exports ru.mephi.List;
+    opens ru.mephi.List to javafx.fxml;
 }

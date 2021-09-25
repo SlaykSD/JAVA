@@ -1,4 +1,4 @@
-package ru.mephi.map;
+package ru.mephi.List;
 
 public class List {
     private int len;
