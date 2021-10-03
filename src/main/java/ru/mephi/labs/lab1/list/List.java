@@ -1,29 +1,8 @@
-package ru.mephi.List;
+package ru.mephi.labs.lab1.list;
 
 public class List {
-    private int len;
+    private int size;
     private Item head;
-
-    private class Item {
-        private Object value;
-        public Item next;
-
-        public Item() {
-            next = null;
-        }
-
-        public Item(Object value) {
-            this.value = value;
-            next = null;
-        }
-
-        @Override
-        public String toString() {
-            return " Item [" +
-                    "value_=" + value +
-                    ']';
-        }
-    }
 
     @Override
     public String toString() {
@@ -31,17 +10,17 @@ public class List {
     }
 
     public List() {
-        len = 0;
+        size = 0;
         this.head = null;
     }
 
     public List(Object value) {
         this.head = new Item(value);
-        len = 1;
+        size = 1;
     }
 
     public void add(Object value) {
-        if (len > 0) {
+        if (size > 0) {
             Item ptr = this.head;
             while (ptr.next != null) {
                 ptr = ptr.next;
@@ -50,11 +29,11 @@ public class List {
         } else {
             head = new Item(value);
         }
-        len++;
+        size++;
     }
 
     public Object remove(int index) {
-        if ( index > (this.len - 1) || index < 0) {
+        if ( index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
             return null;
         }
@@ -72,12 +51,12 @@ public class List {
             res = ptr.next;
             ptr.next = ptr.next.next;
         }
-        len--;
-        return res.value;
+        size--;
+        return res.getValue();
     }
 
     public void add(Object value, int index) {
-        if (index > (this.len - 1) || index < 0) {
+        if (index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
         } else {
             Item res;
@@ -95,12 +74,12 @@ public class List {
                 this.head = new Item(value);
                 this.head.next = res;
             }
-            len++;
+            size++;
         }
     }
 
     private Item findByIndex(int index) {
-        if (index > (this.len - 1) || index < 0) {
+        if (index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
             return null;
         }
@@ -117,27 +96,27 @@ public class List {
         Item ptr = this.findByIndex(index);
         if (ptr == null)
             return null;
-        Object old = ptr.value;
-        ptr.value = value;
+        Object old = ptr.getValue();
+        ptr.setValue(value);
         return old;
     }
 
     public Object get(int index) {
         Item res = findByIndex(index);
-        return res == null ? null : res.value;
+        return res == null ? null : res.getValue();
     }
 
     public int indexOf(Object value) {
         Item ptr = this.head;
         if (value == null) {
-            for (int i = 0; i < len; ++i) {
-                if (ptr.value == null)
+            for (int i = 0; i < size; ++i) {
+                if (ptr.getValue() == null)
                     return i;
                 ptr = ptr.next;
             }
         } else {
-            for (int i = 0; i < len; ++i) {
-                if (value.equals(ptr.value))
+            for (int i = 0; i < size; ++i) {
+                if (value.equals(ptr.getValue()))
                     return i;
                 ptr = ptr.next;
             }
@@ -150,25 +129,25 @@ public class List {
     }
 
     public int size() {
-        return len;
+        return size;
     }
 
     public boolean isEmpty() {
-        return len == 0;
+        return size == 0;
     }
 
     private String show() {
         Item ptr = head;
-        String res = new String();
-        res += "List {";
-        for (int i = 0; i < len; i++) {
-            res += "\n";
-            res += ptr.toString();
+        StringBuilder res = new StringBuilder();
+        res.append("List {");
+        for (int i = 0; i < size; i++) {
+            res.append("\n");
+            res.append(ptr.toString());
             ptr = ptr.next;
         }
-        res += "}";
-        res += "\n";
-        return res;
+        res.append("}");
+        res.append("\n");
+        return res.toString();
     }
 
 }

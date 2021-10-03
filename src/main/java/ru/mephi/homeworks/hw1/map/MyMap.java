@@ -1,6 +1,6 @@
-package ru.mephi.map;
+package ru.mephi.homeworks.hw1.map;
 
-import ru.mephi.List.List;
+import ru.mephi.labs.lab1.list.List;
 
 /*
 Реализовать словарь (map)
@@ -22,58 +22,14 @@ import ru.mephi.List.List;
   - Размер словаря:                      public int size();
   - Пустой или нет:                      public boolean isEmpty();
  */
-public class MyMap implements map {
-    public class Pair
-    {
-        private Object key;
-        private Object value;
-        public Pair()
-        {
-            key = null;
-            value  = null;
-        }
-        public  Pair(Object key, Object value)
-        {
-            this.key = key;
-            this.value = value;
-        }
-        @Override
-        public boolean equals(Object obj) {
-            boolean flag = false;
-            if(obj instanceof Pair) {
-                Pair pair= (Pair) obj;
-                if(pair.key!=null && key !=null)
-                    flag = this.key.equals(pair.key);
-                    else
-                        flag = (pair.key == null && key== null);
-            }
-            return flag;
-        }
 
-        public void setKey(Object key) {
-            this.key = key;
-        }
-
-        public Object getKey() {
-            return key;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return "Pair{" +
-                    "key=" + key +
-                    ", value=" + value +
-                    '}';
-        }
-    }
+/**
+ * This class is the number one homework assignment.
+ * According to the terms of the assignment, a dictionary was implemented in it.
+ * The test is done manually , located in the main function.
+ * @author Denis Gerasimychev
+ */
+public class MyMap implements Map {
     private List dictList;
 
     @Override
@@ -114,19 +70,19 @@ public class MyMap implements map {
         };
         Pair res = (Pair)dictList.get(ind);
     //    if(res != null)
-            return res.value;
+            return res.getValue();
        /* else
             throw new NullPointerException("Incorrect work in \"get\" in list");*/
     }
-    public Object get(Object key, Object bydefault)
+    public Object get(Object key, Object byDefault)
     {
         Pair old = new Pair(key,null);
         int ind = dictList.indexOf(old);
         if(ind < 0 )
-            return bydefault;
+            return byDefault;
         Pair res = (Pair)dictList.get(ind);
      //   if(res != null)
-            return res.value;
+            return res.getValue();
  /*       else
             throw new NullPointerException("Incorrect work in \"get\" in list");*/
     }
@@ -136,7 +92,7 @@ public class MyMap implements map {
         int ind = dictList.indexOf(old);
         if(ind < 0 )
             return null;
-        return ((Pair)dictList.remove(ind)).value;
+        return ((Pair)dictList.remove(ind)).getValue();
     }
     public boolean keyContains(Object key)
     {
@@ -153,7 +109,7 @@ public class MyMap implements map {
         List res  = new List();
         int size = dictList.size();
         for(int i =0 ; i< size; ++i)
-            res.add(((Pair)dictList.get(i)).key);
+            res.add(((Pair)dictList.get(i)).getKey());
         return res;
     }
     public List getValues()
@@ -161,7 +117,7 @@ public class MyMap implements map {
         List res  = new List();
         int size = dictList.size();
         for(int i =0 ; i< size; ++i)
-            res.add(((Pair)dictList.get(i)).value);
+            res.add(((Pair)dictList.get(i)).getValue());
         return res;
     }
     public List getEntries()
@@ -181,6 +137,10 @@ public class MyMap implements map {
         return dictList.isEmpty();
     }
 
+    /**
+     * In this function, the program was tested
+     * @param args - some arguments
+     */
     public static void main(String... args) {
         MyMap newMap = new MyMap (null,null);
         newMap.put("312",3333);
@@ -214,5 +174,16 @@ public class MyMap implements map {
         newMap.remove(null);
         System.out.println("\nПроверка выдачи элементов: "+newMap.isEmpty());
         System.out.println("\nПроверка выдачи элементов: "+newMap.getEntries());
+        int[] arr = new int[2];
+        newMap.put(arr,2);
+        System.out.println("\nПроверка выдачи элементов: "+newMap.getEntries());
+        newMap.remove(arr);
+        System.out.println("\nПроверка выдачи элементов: "+newMap.getEntries());
+        newMap.put(new float[123],"Сосика из 123 флоат");
+        System.out.println("\nПроверка выдачи элементов: "+newMap.getEntries());
+        List list = newMap.getEntries();
+        Pair pair = (Pair)list.get(0);
+        /*if(pair.key instanceof int[])
+            s = pair.key;*/
     }
 }
