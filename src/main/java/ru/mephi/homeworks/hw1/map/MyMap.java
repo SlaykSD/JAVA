@@ -69,10 +69,7 @@ public class MyMap implements Map {
             return null;
         };
         Pair res = (Pair)dictList.get(ind);
-    //    if(res != null)
             return res.getValue();
-       /* else
-            throw new NullPointerException("Incorrect work in \"get\" in list");*/
     }
     public Object get(Object key, Object byDefault)
     {
@@ -81,10 +78,8 @@ public class MyMap implements Map {
         if(ind < 0 )
             return byDefault;
         Pair res = (Pair)dictList.get(ind);
-     //   if(res != null)
             return res.getValue();
- /*       else
-            throw new NullPointerException("Incorrect work in \"get\" in list");*/
+
     }
     public Object remove(Object key)
     {
