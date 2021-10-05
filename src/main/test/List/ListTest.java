@@ -90,9 +90,9 @@ class ListTest {
         list.add("hello world");
         list.add(123);
         list.add(2.123);
-        assertEquals(true, list.contains(123));
-        assertEquals(true, list.contains(2.123));
-        assertEquals(false, list.contains("Baka"));
+        assertTrue(list.contains(123));
+        assertTrue(list.contains(2.123));
+        assertFalse(list.contains("Baka"));
     }
 
     @Test

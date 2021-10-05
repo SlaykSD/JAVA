@@ -2,6 +2,13 @@ package ru.mephi.homeworks.hw2.List;
 
 //Пояснение почему <? super T>
 //
+
+/**
+ * Realizes a list that contains non-null-defined elements that implement the Comparable class.
+ * The class can contain null elements, but sorting will throw some errors.
+ *
+ * @param <T> A class that extends from the comparable class
+ */
 public class List<T extends Comparable<? super T>> {
     private int size;
     private Item<T> head;
@@ -20,81 +27,105 @@ public class List<T extends Comparable<? super T>> {
         this.head = new Item<>(value);
         size = 1;
     }
-    public List(List<T> oldList)
-    {
+
+    public List(List<T> oldList) {
         size = oldList.size;
-        Item<T>ptr = oldList.head;
+        Item<T> ptr = oldList.head;
         head = new Item<>(ptr.getValue());
-        Item<T>ptr2 = head;
+        Item<T> ptr2 = head;
         ptr = ptr.next;
-        for(int i= 0;i< size-1; ++i)
-        {
+        for (int i = 0; i < size - 1; ++i) {
             ptr2.next = new Item<>(ptr.getValue());
-            ptr2= ptr2.next;
+            ptr2 = ptr2.next;
             ptr = ptr.next;
         }
     }
 
     //sort by order
-    private Item<T> mergeSort(Item<T> ptr ,int size)
-    {
+    private Item<T> mergeSort(Item<T> ptr, int size) throws NullPointerException {
         Item<T> low; //Первая половина
-        Item<T> high ; //Вторая половина
-        if(ptr == null || ptr.next == null)
+        Item<T> high; //Вторая половина
+        if (ptr == null || ptr.next == null)
             return null;
 
         int[] sizes = new int[2];
-        sizes[0]= size/2;
-        sizes[1]= size - sizes[0];
+        sizes[0] = size / 2;
+        sizes[1] = size - sizes[0];
         Item<T> curr = ptr;
-        for(int i =0; i< sizes[0]-1; ++i)
+        for (int i = 0; i < sizes[0] - 1; ++i)
             curr = curr.next;
         low = ptr;
         high = curr.next;
-        curr.next =null;
+        curr.next = null;
 
         Item<T> res = mergeSort(low, sizes[0]);
-        if(res != null)
+        if (res != null)
             low = res;
-        res = mergeSort(high,sizes[1]);
-        if(res != null)
+        res = mergeSort(high, sizes[1]);
+        if (res != null)
             high = res;
-        return merge(low,high);
+        return merge(low, high);
     }
 
-    /*
-      Слияние отсортированных связанных списков - задача для тех, кто в 1 лабе реализовывал мапу
-    Необходимо реализовать функцию merge:
-    • на вход функция получает head 2х связанных списков;
-    • внутри функции произвести слияние списков, сохраняя порядок;
-    • порядок в каждом из связанных списков от меньшего к большему;
-    • функция должна вернуть head нового связанного списка.
-    • желательно реализовать на своем списке, сменив Object на int
-     */
+    public boolean mergeSort() {
+        if(!checkNullElements()) {
+            head = mergeSort(head, size);
+        }
+        else
+        {
+            System.out.println("You cannot sort a list with null elements");
+            System.out.println("The sorting was canceled.");
+            return false;
+        }
+        return true;
+    }
+    private  boolean checkNullElements()
+    {
+        Item<T> ptr  =head;
+        while(ptr!= null)
+        {
+            if(ptr.getValue() == null)
+            {
+                return true;
+            }
+            ptr = ptr.next;
+        }
+        return false;
+    }
+    public List<T> merge(List<T> ptr) {
+            if(ptr.mergeSort() && this.mergeSort()) {
+                List<T> ptr2 = new List<>(ptr);
+                ptr2.size += size;
+                ptr2.head = merge(ptr2.head, head);
+                return ptr2;
+            }
+            else
+            {
+                System.out.println("You cannot orderly merge lists that contain null elements");
+                System.out.println("The merge was cancelled");
+            }
+            return null;
+    }
 
-    public void mergeSort()
-    {
-        head = mergeSort(head,size);
-    }
-    public List<T> merge(List<T> ptr)
-    {
-        List<T> ptr2 = new List<T>(ptr);
-        ptr2.mergeSort();
-        ptr2.size += size;
-        ptr2.head = merge(ptr2.head, head);
-        return  ptr2;
-    }
-    private  Item<T> merge(Item<T> a,Item<T> b)
-    {
-        Item<T> tmp ;
+    /*Important Task:
+     Слияние отсортированных связанных списков - задача для тех, кто в 1 лабе реализовывал мапу
+      Необходимо реализовать функцию merge:
+     • на вход функция получает head 2х связанных списков;
+     • внутри функции произвести слияние списков, сохраняя порядок;
+     • порядок в каждом из связанных списков от меньшего к большему;
+     • функция должна вернуть head нового связанного списка.
+     • желательно реализовать на своем списке, сменив Object на int
+   */
+    private Item<T> merge(Item<T> a, Item<T> b) throws NullPointerException {
+        Item<T> tmp;
         Item<T> c;
         //Если какой-то из списков пустой, то просто возращаем другой
         if (a == null) {
-        c = b;
+            c = b;
             return c;
         }
         if (b == null) {
-         c = a;
+            c = a;
             return c;
         }
 
@@ -103,39 +134,39 @@ public class List<T extends Comparable<? super T>> {
             по первым элментам списков определяется НАИМЕНЬШИЙ элемент
             он будет головой нового списка.
          */
-        if (a.getValue().compareTo(b.getValue())<0) {
-         c = a;
+        if (a.getValue().compareTo(b.getValue()) < 0) {
+            c = a;
             a = a.next;
         } else {
-          c = b;
+            c = b;
             b = b.next;
         }
         // Сохраняем итоговый head списка
         tmp = c;
         //Склеиваем первую половину, включая все элементы одного из списков
-        while (a!=null && b!=null) {
-            if (a.getValue().compareTo(b.getValue())<0) {
+        while (a != null && b != null) {
+            if (a.getValue().compareTo(b.getValue()) < 0) {
                 c.next = a;
                 a = a.next;
             } else {
                 c.next = b;
                 b = b.next;
             }
-            c =c.next;
+            c = c.next;
         }
 
-        //Склеиваем оставгшийся список
-        if (a!= null) {
-            while (a!=null) {
+        //Склеиваем оставшийся список
+        if (a != null) {
+            while (a != null) {
                 c.next = a;
                 c = c.next;
                 a = a.next;
             }
         }
-        if (b!=null) {
-            while (b!=null) {
+        if (b != null) {
+            while (b != null) {
                 c.next = b;
-                c=c.next;
+                c = c.next;
                 b = b.next;
             }
         }
@@ -154,33 +185,31 @@ public class List<T extends Comparable<? super T>> {
         }
         size++;
     }
+
     public void addSort(T value) {
+        if(value == null) {
+            System.out.println("you cannot add a null item in order");
+            return;
+        }
         if (size > 0) {
             Item<T> ptr = this.head;
-            if(ptr.getValue().compareTo(value)< 0)
-            {
+            if (ptr.getValue().compareTo(value) < 0) {
                 //Значит введеное значение больше, чем знаечние списка, мы сортируем по возрастанию - наибольшее в конец списка
-                Item<T>  prev = null;
-                while(ptr != null && ptr.getValue().compareTo(value) < 0)
-                {
+                Item<T> prev = null;
+                while (ptr != null && ptr.getValue().compareTo(value) < 0) {
                     prev = ptr;
                     ptr = ptr.next;
                 }
 
-                if(ptr == null)
-                {
+                if (ptr == null) {
                     prev.next = new Item<>(value);
-                }
-                    else
-                {
+                } else {
                     var newItem = new Item<>(value);
                     assert prev != null;
                     newItem.next = prev.next;
                     prev.next = newItem;
                 }
-            }
-            else
-            {
+            } else {
                 head = new Item<>(value);
                 head.next = ptr;
             }
@@ -189,6 +218,7 @@ public class List<T extends Comparable<? super T>> {
         }
         size++;
     }
+
     /*  private void  find (T value, Item<T> prev, Item<T> curr)
     {
         //Передается какой-то элемент списка и предыдущий элемент
@@ -200,7 +230,7 @@ public class List<T extends Comparable<? super T>> {
         }
     }*/
     public T remove(int index) {
-        if ( index > (this.size - 1) || index < 0) {
+        if (index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
             return null;
         }
@@ -337,10 +367,9 @@ public class List<T extends Comparable<? super T>> {
         head1.next = head2;
         head3.next = head1;
         head4.next = null;
-        Item<Integer> res = list.merge(head3,head4);
-        Item<Integer>info = res;
-        while (info!= null)
-        {
+        Item<Integer> res = list.merge(head3, head4);
+        Item<Integer> info = res;
+        while (info != null) {
             System.out.println(info);
             info = info.next;
         }
@@ -349,7 +378,7 @@ public class List<T extends Comparable<? super T>> {
         List<Integer> list1 = new List<>();
         list1.add(123);
         list1.add(37);
-        list1.add(0);
+        list1.add(null);
         list1.add(572);
         list1.add(-17835);
         var list2 = list.merge(list1);

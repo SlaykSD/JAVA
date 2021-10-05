@@ -27,9 +27,4 @@ public class Item<T extends Comparable> {
                 "value_=" + value +
                 ']';
     }
-
-   /* @Override
-    public int compareTo(Object o) {
-        return 0;
-    }*/
 }

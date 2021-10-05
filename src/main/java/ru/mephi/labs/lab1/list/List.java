@@ -1,7 +1,18 @@
 package ru.mephi.labs.lab1.list;
 
+/**
+ * Implementation of a list that stores non-unique null-defined items.
+ * @author DenGer
+ */
 public class List {
+
+    /**
+     * Contains a size of list.
+     */
     private int size;
+    /**
+     * This field contains a reference to the head of list.
+     */
     private Item head;
 
     @Override
@@ -9,16 +20,27 @@ public class List {
         return show();
     }
 
+    /**
+     * Default constructor.
+     */
     public List() {
         size = 0;
         this.head = null;
     }
 
+    /**
+     * Initializing constructor.
+     * @param value is some information.
+     */
     public List(Object value) {
         this.head = new Item(value);
         size = 1;
     }
 
+    /**
+     * Adds a new item to the end of the list.
+     * @param value is some information.
+     */
     public void add(Object value) {
         if (size > 0) {
             Item ptr = this.head;
@@ -32,6 +54,12 @@ public class List {
         size++;
     }
 
+    /**
+     * Deletes an item from the list by index,
+     * returns a reference to the deleted object.
+     * @param index is an item number in the list
+     * @return a reference to the deleted object
+     */
     public Object remove(int index) {
         if ( index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
@@ -55,6 +83,11 @@ public class List {
         return res.getValue();
     }
 
+    /**
+     * Adds a new item to the place which is defined by index.
+     * @param value is some information.
+     * @param index is a number where you want to add
+     */
     public void add(Object value, int index) {
         if (index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
@@ -78,6 +111,12 @@ public class List {
         }
     }
 
+    /**
+     * This function search element by index and
+     * return result. If search incorrect index, then return null.
+     * @param index is an item number in the list
+     * @return data cell or null
+     */
     private Item findByIndex(int index) {
         if (index > (this.size - 1) || index < 0) {
             System.out.println("Incorrect index");
@@ -91,6 +130,12 @@ public class List {
         return ptr;
     }
 
+    /**
+     * Changes the element by the index to the value passed to the function.
+     * @param index is an item number in the list.
+     * @param value is a new value.
+     * @return the old value.
+     */
     public Object set(int index, Object value) {
 
         Item ptr = this.findByIndex(index);
@@ -101,11 +146,21 @@ public class List {
         return old;
     }
 
+    /**
+     * Returns the data by index .
+     * @param index is an item number in the list.
+     * @return information by index
+     */
     public Object get(int index) {
         Item res = findByIndex(index);
         return res == null ? null : res.getValue();
     }
 
+    /**
+     * This function determines the index by the value of
+     * @param value the value whose index we want to know
+     * @return Index if the search is successful and -1 if not
+     */
     public int indexOf(Object value) {
         Item ptr = this.head;
         if (value == null) {
@@ -124,18 +179,34 @@ public class List {
         return -1;
     }
 
+    /**
+     * Checks if there is information in the list
+     * @param value the value, which would be checked
+     * @return if value exists then true else false
+     */
     public boolean contains(Object value) {
         return indexOf(value) >= 0;
     }
 
+    /**
+     * @return size of vector
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Checks the list for at least one item.
+     * @return true if the list is empty and false if otherwise
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Generates a string describing the state of the class
+     * @return string that contains information about the class
+     */
     private String show() {
         Item ptr = head;
         StringBuilder res = new StringBuilder();
