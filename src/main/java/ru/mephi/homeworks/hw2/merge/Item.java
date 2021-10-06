@@ -1,4 +1,4 @@
-package ru.mephi.homeworks.hw2.List;
+package ru.mephi.homeworks.hw2.merge;
 
 public class Item<T extends Comparable> {
     private T value;

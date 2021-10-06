@@ -1,9 +1,10 @@
-package ru.mephi.homeworks.hw2.List;
+package ru.mephi.homeworks.hw2.merge;
 
-//Пояснение почему <? super T>
+//
 //
 
 /**
+ * The Merge.
  * Realizes a list that contains non-null-defined elements that implement the Comparable class.
  * The class can contain null elements, but sorting will throw some errors.
  *
@@ -95,8 +96,9 @@ public class List<T extends Comparable<? super T>> {
     public List<T> merge(List<T> ptr) {
             if(ptr.mergeSort() && this.mergeSort()) {
                 List<T> ptr2 = new List<>(ptr);
-                ptr2.size += size;
-                ptr2.head = merge(ptr2.head, head);
+                List<T> ptr3 = new List<>(this);
+                ptr2.size += ptr3.size;
+                ptr2.head = merge(ptr2.head, ptr3.head);
                 return ptr2;
             }
             else
@@ -340,6 +342,8 @@ public class List<T extends Comparable<? super T>> {
         for (int i = 0; i < size; i++) {
             res.append("\n");
             res.append(ptr.toString());
+            res.append(" index:");
+            res.append(i);
             ptr = ptr.next;
         }
         res.append("}");
