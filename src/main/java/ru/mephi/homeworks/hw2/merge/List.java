@@ -3,6 +3,8 @@ package ru.mephi.homeworks.hw2.merge;
 //
 //
 
+import java.util.Collection;
+
 /**
  * The Merge.
  * Realizes a list that contains non-null-defined elements that implement the Comparable class.
@@ -10,7 +12,7 @@ package ru.mephi.homeworks.hw2.merge;
  *
  * @param <T> A class that extends from the comparable class
  */
-public class List<T extends Comparable<? super T>> {
+public class List<T extends Comparable<? super T>>  {
     private int size;
     private Item<T> head;
 
@@ -118,7 +120,7 @@ public class List<T extends Comparable<? super T>> {
      • функция должна вернуть head нового связанного списка.
      • желательно реализовать на своем списке, сменив Object на int
    */
-    private Item<T> merge(Item<T> a, Item<T> b) throws NullPointerException {
+    private Item<T> merge(Item<T> a, Item<T> b) {
         Item<T> tmp;
         Item<T> c;
         //Если какой-то из списков пустой, то просто возращаем другой
@@ -132,7 +134,7 @@ public class List<T extends Comparable<? super T>> {
         }
 
         /*
-            Предполагается, что оба списка уже отсортированы по убыванию.Поэтому
+            Предполагается, что оба списка уже отсортированы по возрастанию .Поэтому
             по первым элментам списков определяется НАИМЕНЬШИЙ элемент
             он будет головой нового списка.
          */
@@ -159,18 +161,20 @@ public class List<T extends Comparable<? super T>> {
 
         //Склеиваем оставшийся список
         if (a != null) {
-            while (a != null) {
+            c.next =a;
+/*            while (a != null) {
                 c.next = a;
                 c = c.next;
                 a = a.next;
-            }
+            }*/
         }
         if (b != null) {
-            while (b != null) {
+            c.next = b;
+/*            while (b != null) {
                 c.next = b;
                 c = c.next;
                 b = b.next;
-            }
+            }*/
         }
         return tmp;
     }
@@ -353,11 +357,15 @@ public class List<T extends Comparable<? super T>> {
 
     public static void main(String[] args) {
         List<Integer> list = new List<>();
-        list.add(0);
-        list.add(3);
-        list.add(2);
-        list.add(123);
-        list.add(-123);
+        List<Integer> listUnq = new List<>();
+        listUnq.add(0);
+        listUnq.add(3);
+        listUnq.add(500);
+        list.add(-1);
+        list.add(10);
+        list.add(20);
+
+        var resault= (listUnq.merge(listUnq.head,list.head));
         list.mergeSort();
         Item<Integer> head1 = new Item<>();
         head1.setValue(23);
@@ -382,7 +390,7 @@ public class List<T extends Comparable<? super T>> {
         List<Integer> list1 = new List<>();
         list1.add(123);
         list1.add(37);
-        list1.add(null);
+        list1.add(234);
         list1.add(572);
         list1.add(-17835);
         var list2 = list.merge(list1);
