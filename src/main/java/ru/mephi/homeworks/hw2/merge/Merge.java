@@ -10,23 +10,17 @@ public class Merge {
         List<String> list6 = new List<>();
 
 
-        int size = 100;
+        int size = 5;
         for(int i = 0;i<size;i++ )
             list1.add((int)  ((Math.random()*100)-50));
-        size = 10;
         for(int i = 0;i<size;i++ )
             list3.add((int) ((Math.random()*100)-50));
-
-        size = 111;
         for(int i = 0;i<size;i++ )
-            list2.add((Double) Math.random()*100);
-        size = 25;
+            list2.add(Math.random() *100);
         for(int i = 0;i<size;i++ )
-            list5.add((Double) Math.random()*100);
-        size = 25;
+            list5.add(Math.random() *100);
         for(int i = 0;i<size;i++ )
             list4.add( ((Integer)(int)(Math.random()*100)).toString());
-        size = 25;
         for(int i = 0;i<size;i++ )
             list6.add( ((Integer)(int)(Math.random()*100)).toString());
         System.out.println("INTEGER---");
@@ -42,8 +36,7 @@ public class Merge {
         System.out.println("STRING---");
         System.out.println(list6);
 
-        list1 = list1.merge(list3);
-        var listResult1 = list1.merge(list3);;
+        var listResult1 = list1.merge(list3);
         System.out.println("List 1 + List 3---");
         System.out.println(listResult1);
         list2.mergeSort();

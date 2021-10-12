@@ -9,7 +9,7 @@ import ru.mephi.labs.lab1.list.List;
 
 public class Task1 {
     public  static void main(String...args) {
-        ArrayList<String> arr = new ArrayList<String>();
+        ArrayList<String> arr = new ArrayList<>();
         MyMap map = new MyMap();
         Collections.addAll(arr, "a", "b", "ab", "a", "b", "c", "cc", "ab", null, null, null, null);
         for (String o : arr) {
