@@ -127,6 +127,20 @@ public class Employee {
         code=builder.code;
     }
 
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
     public Gender getGender() {
         return gender;
     }
@@ -155,7 +169,7 @@ public class Employee {
         return dept;
     }
 
-    public String geteEMail() {
+    public String getEMail() {
         return eMail;
     }
 
@@ -294,6 +308,21 @@ public class Employee {
                         .state("JP")
                         .dept("Cooking shrimp")
                         .phone("266326")
+                        .build()
+                ,
+                new Builder()
+                        .givenName("MenError")
+                        .surName("Inkoginto")
+                        .age(0)
+                        .gender(Gender.FEMALE)
+                        .role(Role.EXECUTIVE)
+                        .address("PapaMoject, KKKK")
+                        .city("Looozer")
+                        .eMail("EROOOOOOOOOOOR")
+                        .code("nope")
+                        .state("UKRAINE")
+                        .dept("Hepl me")
+                        .phone("I'm BUSY")
                         .build()
 
         );
