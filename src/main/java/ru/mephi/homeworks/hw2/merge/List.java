@@ -13,8 +13,8 @@ import java.util.Collection;
  * @param <T> A class that extends from the comparable class
  */
 public class List<T extends Comparable<? super T>>  {
-    private int size;
-    private Item<T> head;
+    protected int size;
+    protected Item<T> head;
 
     @Override
     public String toString() {

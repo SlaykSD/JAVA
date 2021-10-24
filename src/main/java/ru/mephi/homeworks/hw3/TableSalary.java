@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public final class TableSalary {
     private static  TableSalary instance;
-    private HashMap<Employee,Double> table;
+    private final HashMap<Employee,Double> table;
     public static final int minSalary = 12792; //minimum wage in Russia
     public static final int maxSalary = 70000; //max wage in this company
     public static final int award = 10000; //award company
