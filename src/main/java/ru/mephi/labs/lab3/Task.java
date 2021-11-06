@@ -1,62 +1,63 @@
 package ru.mephi.labs.lab3;
 
 
+import java.util.List;
+
 /**
- * The class implements laboratory work 3.
+ * The class implement's laboratory work 3.
  * In this lab my skills on working with streams, filters and pattern builder were showed.
  */
+
 public class Task {
+    private static final Accountant accountant = new Accountant();
     /**
      * As part of this function, a premium is given to girls
      */
-    public static void Task1(){
+    public static void task1(List<Employee> list){
         System.out.println("\nВыплата премии женщинам сотрудникам:");
-        var list = Employee.createShortList();
-        list.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).forEach(employee -> new Accountant().payPremium(employee));
+        list.stream().filter(p -> p.getGender().equals(Gender.FEMALE)).forEach(accountant::payPremium);
     }
 
     /**
      * In this function, employees of a particular department receive a salary
      */
-    public static void Task2(){
+    public static void task2(List<Employee> list){
         System.out.println("\nВыплата зарплаты сотрудникам определенного департамента:");
-        var list = Employee.createShortList();
-        list.stream().filter(p -> p.getDept().equals("IT")).forEach(employee -> new Accountant().paySalary(employee));
+        list.stream().filter(p -> p.getDept().equals("IT")).forEach(accountant::paySalary);
     }
     /**
      * This function pays a premium to employees over 30 who work in a particular department
      */
-    public static void Task3(){
+    public static void task3(List<Employee> list){
         System.out.println("\nВыплата премии сотрудникам старше 30, работающим в определенном департаменте:");
-        var list = Employee.createShortList();
         list.stream().
                 filter(p -> (p.getDept().equals("IT") && p.getAge()>30))
-                .forEach(employee -> new Accountant().payPremium(employee));
+                .forEach(accountant::payPremium);
     }
 
     /**
      * This function pays the managers' salaries
      */
-    public static void Task4(){
+    public static void task4(List<Employee> list){
         System.out.println("\nВыплата зарплаты менеджерам:");
-        var list = Employee.createShortList();
-        list.stream().filter(p -> p.getRole().equals(Role.MANAGER)).forEach(employee -> new Accountant().paySalary(employee));
+        list.stream().filter(p -> p.getRole().equals(Role.MANAGER)).forEach(accountant::paySalary);
     }
 
     /**
      * In this function, a premium is paid to the Staff
      */
-    public static void Task5(){
+    public static void task5(List<Employee> list){
         System.out.println("\nВыплата премии стаффу:");
-        var list = Employee.createShortList();
-        list.stream().filter(p -> p.getRole().equals(Role.STAFF)).forEach(employee -> new Accountant().payPremium(employee));
+        list.stream().filter(p -> p.getRole().equals(Role.STAFF)).forEach(accountant::payPremium);
     }
 
     public static void main(String[] args) {
-        Task1();
-        Task2();
-        Task3();
-        Task4();
-        Task5();
+        var list = Employee.createShortList();
+        System.out.println(list);
+        task1(list);
+        task2(list);
+        task3(list);
+        task4(list);
+        task5(list);
     }
 }

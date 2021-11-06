@@ -11,7 +11,7 @@ public final class TableSalary {
     private final HashMap<Employee,Double> table;
     public static final int minSalary = 12792; //minimum wage in Russia
     public static final int maxSalary = 70000; //max wage in this company
-    public static final int award = 10000; //award company
+    public static final int premium = 10000; //award company
     private  TableSalary(){
         table = new HashMap<>();
     }
@@ -37,6 +37,10 @@ public final class TableSalary {
             table.put(employee,value);
         }
     }
+    public void resetSalary()
+    {
+        table.forEach((x,y)->y = 0.0 );
+    }
     public void upSalary(Employee employee, Double value)
     {
         if(!table.containsKey(employee))
@@ -58,6 +62,12 @@ public final class TableSalary {
     public List<Employee> getEmployees()
     {
         return table.keySet().stream().toList();
+    }
+
+    public static Supplier<Double> getRandomSalary() {
+        return () -> {
+            return TableSalary.minSalary + (Math.random() * (TableSalary.maxSalary - TableSalary.minSalary));
+        };
     }
 
     public void initialisationTable(List<Employee> list, Supplier<Double> randomGenerator){
