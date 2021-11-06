@@ -30,101 +30,102 @@ public class Employee {
     private String state;
     private String code;
 
-    public static class Builder{
+    public static class Builder {
         private String givenName;
         private String surName;
         private Integer age = 0;
-        private Gender gender ;
+        private Gender gender;
         private Role role;
         private String dept = "";
         private String eMail;
         private String phone;
         private String address = "Moscow";
         private String city = "Moscow";
-        private String state ="";
-        private String code ="";
+        private String state = "";
+        private String code = "";
 
-        public Builder givenName(String val)
-        {
-            givenName=val;
-            return  this;
-        }
-        public Builder surName (String val)
-        {
-            surName=val;
-            return  this;
-        }
-        public Builder age (Integer val)
-        {
-            age=val;
-            return  this;
-        }
-        public Builder gender (Gender val)
-        {
-            gender=val;
-            return  this;
-        }
-        public Builder role (Role val)
-        {
-            role=val;
-            return  this;
-        }
-        public Builder dept (String val)
-        {
-            dept=val;
-            return  this;
-        }
-        public Builder eMail (String val)
-        {
-            eMail=val;
-            return  this;
+        public Builder givenName(String val) {
+            givenName = val;
+            return this;
         }
 
-        public Builder address (String val)
-        {
-            address=val;
-            return  this;
+        public Builder surName(String val) {
+            surName = val;
+            return this;
         }
-        public Builder city (String val)
-        {
-            city=val;
-            return  this;
+
+        public Builder age(Integer val) {
+            age = val;
+            return this;
         }
-        public Builder phone (String val)
-        {
-            phone=val;
-            return  this;
+
+        public Builder gender(Gender val) {
+            gender = val;
+            return this;
         }
-        public Builder state (String val)
-        {
-            state=val;
-            return  this;
+
+        public Builder role(Role val) {
+            role = val;
+            return this;
         }
-        public Builder code (String val)
-        {
-            code=val;
-            return  this;
+
+        public Builder dept(String val) {
+            dept = val;
+            return this;
         }
-        public Employee build() {return new Employee(this);}
+
+        public Builder eMail(String val) {
+            eMail = val;
+            return this;
+        }
+
+        public Builder address(String val) {
+            address = val;
+            return this;
+        }
+
+        public Builder city(String val) {
+            city = val;
+            return this;
+        }
+
+        public Builder phone(String val) {
+            phone = val;
+            return this;
+        }
+
+        public Builder state(String val) {
+            state = val;
+            return this;
+        }
+
+        public Builder code(String val) {
+            code = val;
+            return this;
+        }
+
+        public Employee build() {
+            return new Employee(this);
+        }
 
     }
-    //На всякий если у нас
-    //затестить если супер не вызвать сто будет с класом
-    private Employee(){super();}
-    private Employee(Builder builder)
-    {
+
+    private Employee() {
+    }
+
+    private Employee(Builder builder) {
         givenName = builder.givenName;
         surName = builder.surName;
-        age =builder.age ;
-        gender=builder.gender;
-        role=builder.role;
-        dept=builder.dept;
-        eMail=builder.eMail;
-        phone=builder.phone;
-        address=builder.address;
-        city=builder.city;
-        state=builder.state;
-        code=builder.code;
+        age = builder.age;
+        gender = builder.gender;
+        role = builder.role;
+        dept = builder.dept;
+        eMail = builder.eMail;
+        phone = builder.phone;
+        address = builder.address;
+        city = builder.city;
+        state = builder.state;
+        code = builder.code;
     }
 
 
@@ -188,8 +189,8 @@ public class Employee {
     public String getCode() {
         return code;
     }
-    public static List<Employee> createShortList()
-    {
+
+    public static List<Employee> createShortList() {
         List<Employee> list = new ArrayList<>();
         Collections.addAll(list,
                 new Builder()
@@ -336,7 +337,7 @@ public class Employee {
                 ", surName='" + surName + '\'' +
                 ", age=" + age +
                 ", gender=" + gender +
-                ", role=" + (role.getInterestRate()*100)+"%"+
+                ", role=" + role.toString() +
                 ", dept='" + dept + '\'' +
                 ", eMail='" + eMail + '\'' +
                 ", phone='" + phone + '\'' +
@@ -347,12 +348,4 @@ public class Employee {
                 '}';
     }
 
-    public static void main(String[] args) {
-        Employee e = new Builder()
-                .age(123)
-                .city("home")
-                .code("asf")
-                .build();
-
-    }
 }

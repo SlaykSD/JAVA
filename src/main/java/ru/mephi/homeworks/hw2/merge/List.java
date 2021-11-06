@@ -13,9 +13,14 @@ import java.util.Collection;
  * @param <T> A class that extends from the comparable class
  */
 public class List<T extends Comparable<? super T>>  {
+    /*
+    Пояснение шаблона generic
+    Мне нужно чтобы T implement Comparable<T> для дженерика это пишится ровно как:
+    T extends Comparable<T> Но
+
+     */
     protected int size;
     protected Item<T> head;
-
     @Override
     public String toString() {
         return show();
@@ -379,8 +384,7 @@ public class List<T extends Comparable<? super T>>  {
         head1.next = head2;
         head3.next = head1;
         head4.next = null;
-        Item<Integer> res = list.merge(head3, head4);
-        Item<Integer> info = res;
+        Item<Integer> info = list.merge(head3, head4);
         while (info != null) {
             System.out.println(info);
             info = info.next;
