@@ -1,6 +1,7 @@
 module com.example.lab2 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires lombok;
 
 
     opens ru.mephi.homeworks.hw1.map to javafx.fxml;

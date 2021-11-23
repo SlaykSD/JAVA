@@ -40,10 +40,19 @@ public class Task extends WorkingWithSalaryTable {
         AtomicReference<Double> result = new AtomicReference<>(0.0);
         Runnable generatorTotalSum =()->{
             result.set(employeeList.stream().map(getFullSalary).peek(x -> {
-                count.getAndIncrement();
+                   count.getAndIncrement();
                 System.out.println("Salary [" + count.get() + "] :" + x);
             }).reduce(Double::sum).orElse(-1.0));
        };
+/*        AtomicInteger count = new AtomicInteger(0); //переменная чисто для показа индекса перменных (хотим увидеть как параллельно производятся вычисления в потоках)
+        AtomicReference<Double> result = new AtomicReference<>(0.0);
+        Runnable generatorTotalSum =()->{
+            result.set(employeeList.stream().mapToDouble(getDoubleFullSalary).peek(x -> {
+                count.getAndIncrement();
+                System.out.println("Salary [" + count.get() + "] :" + x);
+            }).sum());
+        };*/
+
        //Просто для теста
         AtomicReference<Double> sum = new AtomicReference<>(0.0);
         Runnable anotherGeneratorTotalSum =()->{
@@ -54,15 +63,16 @@ public class Task extends WorkingWithSalaryTable {
             for (var a: lits)
                 sum.updateAndGet(v-> v + a);
         };
+
         StopWatch.checkTime(generatorTotalSum,"расчет полной суммы");
         System.out.println("Результат расчета в основной функции: "+result.get());
         count.set(0);
         StopWatch.checkTime(anotherGeneratorTotalSum,"расчет полной суммы не в стриме");
         System.out.println("Сумма расчета другим методом: "+sum.get());
         System.out.println("Результат сравнения двух расчетов: "+sum.get().equals( result.get()));
-        if(sum.get().equals(result.get())) {
+  /*      if(sum.get().equals(result.get())) {
             System.out.println("Сумма расчета другим методом: "+sum.get());
-        }
+        }*/
         //Test
 
 
@@ -145,12 +155,17 @@ public class Task extends WorkingWithSalaryTable {
         employeeList.stream().max(Comparator.comparingInt(Employee::getAge)).ifPresent(System.out::println);
         employeeList.stream().min(Comparator.comparingInt(Employee::getAge)).ifPresent(System.out::println);
     }
+
     @Override
     public void doAction() throws InterruptedException {
+        //Расчет суммы зарплат всех рабочих (map и peek) и sum
         totalFounds();
+        // Расчет средней зарпрплаты рабочих (реализация avarage)
         averageSalary();
+        //Реализация findfirst и показ lazy операций
         findFirstFemaleDefault();
         findFirstFemaleParallel();
+        //Реализация работы min max
         sortByAge();
     }
 
