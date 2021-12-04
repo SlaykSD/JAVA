@@ -66,10 +66,11 @@ public class SecondTask {
         System.out.println("Answer: "+((meeting.toLocalDate().isEqual(timeArrive.toLocalDate()) &&
                 (meeting.toLocalTime().isAfter(timeArrive.toLocalTime()) || meeting.toLocalTime().equals(timeArrive.toLocalTime())))?"yes":"no"));
         System.out.println("Can the traveler call her husband at a reasonable time when she arrives?");
-        System.out.println("Answer: "+(((meeting.isAfter(timeArrive) || meeting.isEqual(timeArrive)))?"yes":"no"));
+        System.out.println("Answer: "+(( timeArrive.toLocalTime().isAfter(LocalTime.of(8,0)) &&
+                timeArrive.toLocalTime().isBefore(LocalTime.of(23,0))  )?"yes":"no"));
 
         // 4 Flight 123, San Francisco to Boston, leaves SFO at 10:30 PM Saturday, November 1st, 2014
-        System.out.println("Flight 123, San Francisco to Boston, leaves SFO at 10:30 PM Saturday, November 1st, 2014");
+        System.out.println("\nFlight 123, San Francisco to Boston, leaves SFO at 10:30 PM Saturday, November 1st, 2014");
         System.out.println("Flight time is 5 hours 30 minutes.");
         durationFlight = LocalTime.of(5,30);
         startFlight = ZonedDateTime.of(LocalDateTime.of(2014,Month.NOVEMBER,1,22,30),SFO);

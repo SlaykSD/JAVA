@@ -53,7 +53,7 @@ public class ExceptionsTask {
     которое сигнализирует о том, что код попытался привести ссылку
     на тип, к которому он не является подтипом.
     */
-    public static void  testClassCastException()
+    public static void  testClassCastException() throws ClassCastException
     {
         Object primitives = new int[1];
         Integer[] integers = (Integer[]) primitives;
@@ -63,17 +63,17 @@ public class ExceptionsTask {
     /*
     Арифметическое
      */
-    private static void simpleDivision(int a, int b){
+    private static void simpleDivision(int a, int b) throws ArithmeticException{
         int res = a/b;
         System.out.println("Division has been successfully done");
         System.out.println("Value after division: "+res);
     }
-    public static void testArithmeticException(){
+    public static void testArithmeticException()throws ArithmeticException{
         //Попробуем поделить на 0
         simpleDivision(21430,0);
     }
     //Error memory
-    public static void outOfMemoryExample()
+    public static void outOfMemoryExample() throws OutOfMemoryError
     {
         Integer[] myArray = new Integer[1000 * 1000 * 1000 * 10000];
     }
@@ -84,7 +84,7 @@ public class ExceptionsTask {
     -наличие огромного количества локальных переменных внутри метода .
     -вызывать методы из методов до тех пор, пока стек не будет исчерпан
     */
-    public static int calculateFactorial(int number){
+    public static int calculateFactorial(int number) throws StackOverflowError{
         return number * calculateFactorial(number - 1);
     }
     /*
@@ -105,6 +105,7 @@ public class ExceptionsTask {
         //-----------Test FileNoFoundException
         try {
             System.out.println("\n-----------Test FileNoFoundException");
+
             testFileException("src\\main\\java\\ru\\mephi\\labs\\lab5\\BlackList.js");
             testFileException("src\\main\\java\\ru\\mephi\\labs\\lab5\\EvilScript.py");
         }
@@ -112,7 +113,14 @@ public class ExceptionsTask {
 
             System.out.println(exception.getMessage());
         }
+        try {
+            System.out.println("\n-----------Test FileNoFoundException");
+            testFileException("src\\main\\java\\ru\\mephi\\labs\\lab5\\BlackList1.js");
+        }
+        catch (FileNotFoundException exception){
 
+            System.out.println(exception.getMessage());
+        }
         //-----------Test NPE
         try {
             System.out.println("\n-----------Test NPE");
@@ -126,6 +134,7 @@ public class ExceptionsTask {
         //------------Test IOExсpetion
         try {
             System.out.println("\n-----------Test IOException");
+            testIOException("src\\main\\java\\ru\\mephi\\labs\\lab6\\some.js");
             testIOException("src\\main\\java\\ru\\mephi\\labs\\lab5\\BlackList.js");
             testIOException("src\\main\\java\\ru\\mephi\\labs\\lab5\\EvilScript.py");
         } catch (IOException e){
