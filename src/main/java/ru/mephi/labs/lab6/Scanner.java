@@ -33,6 +33,7 @@ public class Scanner {
                         line = line.substring(offset+subline.length());
                     }
             }
+            reader.close();
 
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
@@ -63,6 +64,7 @@ public class Scanner {
                 }
                 index++;
             }
+            reader.close();
 
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
@@ -92,7 +94,7 @@ public class Scanner {
                 }
                 i++;
             }
-
+            reader.close();
         } catch (FileNotFoundException exception) {
             exception.printStackTrace();
         } catch (IOException e) {

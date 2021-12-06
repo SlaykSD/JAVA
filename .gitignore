@@ -1,2 +1,3 @@
 # Project exclude paths
 /target/
+/src/main/java/ru/mephi/homeworks/hw6/task2/DirFind.class
